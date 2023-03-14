@@ -13,8 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-
-
 app.get('/blockchain', function (req, res) {
   res.send(bitcoin)
 })
@@ -43,6 +41,18 @@ app.get('/mine', function(req, res) {
         block: newBlock
     });
 });
+// registering node and broadcast to network
+app.post("./register-and-broadcast-node", function(req, res) {
+    const newNodeUrl = req.body.newNodeUrl;
+})
+
+app.post('./register-node', function(req, res) {
+    
+});
+// registering multiple nodes
+app.post("./register-node-bulk", function(req, res) {
+    
+})
 
 app.listen(port, function() {
     console.log(`Listening on port ${port}...`);

@@ -1,12 +1,14 @@
 
 const sha256 = require('sha256');
-
+const currentNodeUrl = process.argv[3]
 
 
 function Blockchain() {
     this.chain = [];
     // pendingTransactions array is used for pending transactions (not yet on the chain)
     this.pendingTransactions = [];
+    this.currentNodeUrl = currentNodeUrl;
+    this.networkNodes = [];
     // for creating a genisis block
     this.createNewBlock(100, '0', '0');
 };
