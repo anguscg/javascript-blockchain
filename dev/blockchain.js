@@ -5,9 +5,10 @@ const uuidv1 = require('uuid');
 
 
 
+
 function Blockchain() {
     this.chain = [];
-    // pendingTransactions array is used for pending transactions (not yet on the chain)
+   
     this.pendingTransactions = [];
     this.currentNodeUrl = currentNodeUrl;
     this.networkNodes = [];
@@ -22,7 +23,7 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
         transactions: this.pendingTransactions,
         nonce: nonce,
         hash: hash,
-        previousBlockHash: previousBlockHash,
+        previousBlockHash: previousBlockHash
 
     };
     this.pendingTransactions = [];
@@ -33,24 +34,29 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
 
 // return last block
 Blockchain.prototype.getLastBlock = function() {
-    return this.chain[this.chain.length - 1];
+	return this.chain[this.chain.length - 1];
 };
 
 
 Blockchain.prototype.createNewTransaction = function(amount, sender, recipient) {
-    const newTransaction = {
-        amount: amount, 
-        sender: sender, 
-        recipient: recipient,
-        transactionId: uuidv1.v1().split('-').join('')
-    };
-    return newTransaction;
+    
+	const newTransaction = {
+		amount: amount,
+		sender: sender,
+		recipient: recipient,
+		transactionId: uuidv1.v1().split('-').join('')
+	};
+    
+	return newTransaction;
 };
 
-Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObject) {
-    this.pendingTransactions.push(transactionObject);
-    return this.getLastBlock(['index'] + 1)
+
+Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObj) {
+	this.pendingTransactions.push(transactionObj);
+    return this.getLastBlock()['index'] + 1;
+    
 };
+
 
 // creating hashblock using sha256 from previous block, current block and nonce
 Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
